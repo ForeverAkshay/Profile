@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshay Bedre</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #080808;
+            color: #fff;
+        }
+
+        #header {
+            width: 100%;
+            height: 100vh;
+            background-image: url(black_hole.jpg);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #080808;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader {
+            border: 6px solid #fff;
+            border-top: 6px solid #ff004f;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .container {
+            padding: 10px 10%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            text-align: left;
+            justify-content: left;
+            width: 100px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: #ffffff; /* Text color */
+            text-decoration: none; /* No underline */
+            font-size: 18px; /* Font size */
+            position: relative; /* For positioning if needed */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.726); /* Adds a subtle shadow */
+        }
+        
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background-color: #ff004f;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: 0.5s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .header-text {
+            border-radius: 20px;
+            background-color: #00000056;
+            margin-top: 20%;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 60px;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .header-text h1 span {
+            color: #ff004f;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #skills {
+            padding: 80px 10%;
+            text-align: center;
+        }
+
+        #skills h1 {
+            font-size: 60px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .skill {
+            margin-bottom: 20px;
+        }
+
+        .skill-bar {
+            position: relative;
+            width: 100%;
+            height: 20px;
+            background: #262626;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar .fill {
+            position: absolute;
+            height: 100%;
+            background: #ff004f;
+            width: 0;
+            animation: fillSkill 2s ease-in-out forwards;
+        }
+
+        .skill-name {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        @keyframes fillSkill {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: var(--skill-width);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-text h1 {
+                font-size: 40px;
+            }
+
+            .header-text p {
+                font-size: 18px;
+            }
+        }
+
+            /* Back to Top Button */
+            #back-to-top {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background: #ff004f;
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-size: 20px;
+                display: none;
+            }
+    
+            #back-to-top:hover {
+                background: #000;
+            }
+
+        /* Portfolio Section */
+        #portfolio {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        #portfolio h1 {
+            font-size: 60px;
+            color: #fff;
+        }
+
+        .portfolio-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .portfolio-item {
+            width: 300px;
+            background: #262626;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.5s, background 0.5s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            background: #ff004f;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .portfolio-item h2 {
+            margin: 15px 0 10px;
+            font-size: 22px;
+        }
+
+        .portfolio-item p {
+            font-size: 14px;
+        }
+
+
+                /* about */
+                #about{
+                    padding: 80px 0;
+                    color: #ababab;
+                }
+                .row{
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                }
+                
+                .about-col-1{
+                    flex-basis: 35%;
+                }
+                
+                .about-col-1 img{
+                    width: 100%;
+                    border-radius: 15px;
+                
+                }
+                
+                .about-col-2{
+                    flex-basis: 60%;
+                }
+                .sub-title{
+                    font-size: 60px;
+                    font-weight:600;
+                    color: #fff;
+                }
+                .tab-titles{
+                    display: flex;
+                    margin: 20px 0 40px;
+                
+                }
+                
+                .tab-links{
+                    margin-right: 50px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    position: relative;
+                }
+                
+                .tab-links::after{
+                    content: '';
+                    width: 0;
+                    height: 3px;
+                    background: #ff004f;
+                    position: absolute;
+                    left:0;
+                    bottom: -8px;
+                    transition: 0.5s;
+                }
+                
+                .tab-links.active-link::after{
+                    width: 50%;
+                }
+                
+                .tab-contents ul li{
+                    list-style: none;
+                    margin: 10px 0;
+                }
+                
+                .tab-contents ul li span{
+                    color: #b54769;
+                    font-size: 14px;
+                }
+                
+                .tab-contents{
+                    display: none;
+                }
+                
+                .tab-contents.active-tab{
+                    display: contents;
+                
+                }
+                
+
+
+                /* -----------services */
+        
+                #services{
+                    font-size: large;
+                    padding: 30px 0;
+                }
+                
+                .services-list{
+                    font-weight: 500;
+                    display: flex;
+                    grid-template-columns: repeat(autofit, minmax(250px,1fr));
+                    grid-gap: 40px;
+                    margin-top: 50px;
+                
+                }
+                
+                .services-list div{
+                    background: #5a3636;
+                    padding: 40px;
+                    font-size: 13px;
+                    font-weight: 300;
+                    border-radius: 30px;
+                    transition: backgroung 0.5s , transform 0.5s ;
+                }
+                
+                .services-list i{
+                    font-size: 50px;
+                    margin-bottom: 30px;
+                
+                }
+                .services-list div h2{
+                    font-size: 30px;
+                    margin-bottom: 15px;
+                }
+                
+                .services-list div a{
+                    text-decoration: none;
+                    color: #fff;
+                    font-size: 12px;
+                    display: inline-block;
+                }
+                
+                .services-list div a:hover{
+                    text-transform: capitalize;
+                    color: #000000;
+                    
+                }
+                .services-list div:hover{
+                    background: #ff004f;
+                    transform: translateY(-10px);
+                }
+                
+                /* --------contact------ */
+                .contact-left{
+                    flex-basis: 35%;
+                    
+                }
+                .contact-right{
+                    flex-basis: 60%;
+                
+                }
+                .contact-left p{
+                    margin-top: 40px;
+                   
+                }
+                
+                .contact-left p i{
+                    color: #ff004f;
+                    margin-right: 15px;
+                    margin-bottom: 30px;
+                    font-size: 25px;
+                }
+                
+                .social-icons{
+                    margin-top: 30px;
+                }
+                .social-icons a{
+                    text-decoration: none;
+                    margin-right: 15px;
+                    font-size: 30px;
+                    color: #ababab;
+                    display: inline-block;
+                }
+                
+                .social-icons a:hover{
+                    color: #ff004f;
+                    transform: translateY(-5px);
+                    transition: 0.5s;
+                }
+                
+                .btn{
+                    display: block;
+                    margin: 50px auto;
+                    width: fit-content;
+                    border: 1px solid #ff004f;
+                    padding: 14px 50px;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    color: #fff;
+                    background-color: #000000;
+                }
+                
+                .btn:hover{
+                    background-color: #ff004f;
+                    transition: 0.5s;
+                    
+                }
+                
+                .contact-right form{
+                    width: 100%;
+                }
+                
+                form input, form textarea{
+                    width: 100%;
+                    border: 0;
+                    outline: none;
+                    background: #262626;
+                    color: #fff;
+                    padding: 15px;
+                    margin: 15px 0;
+                    font-size: 18px;
+                    border-radius: 6px;
+                }
+                
+                .copyright{
+                    width: 100%;
+                    text-align: center;
+                    padding: 25px;
+                    background: #262626;
+                    font-weight: 300;
+                    margin-top: 20px;
+                }
+                .copyright i{
+                    color: #ff004f;
+                }
+                
+                /* -----responsive------ */
+                @media only screen and (max-width: 600px){
+                    #header{
+                        background-image: url(mobilespace.jpg);
+                    }
+                    #services{
+                        font-size: 20px;
+                        padding: 10px 0;
+                        display: flex;
+                    }
+                    .services-list{
+                        display: flex;
+                    }
+                
+                }
+                
+                #msg{
+                    color:#61b752;
+                    margin-top: -40px;
+                    display: block;
+                }
+                
+                .copyright p span{
+                    color: #724343;
+                    
+                }
+                
+
+
+    </style>
+    <link rel="icon" type="image/jpg" sizes="32x32" href="logo2.jpg">
+
+
+</head>
+
+<body>
+
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <div id="header">
+        <div class="container">
+            <nav>
+                <img src="Code Building Logo.jpg" class="logo" alt="Akshay Logo">
+                <ul>
+                    <li><a href="#header">Home</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#Contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-text">
+                <p>Design Develop Deploy</p>
+                <h1>Hi, I'm <span>Akshay Bedre</span> <br> from Pune</h1>
+            </div>
+        </div>
+    </div>
+
+    
+
+   <!-- Portfolio Section -->
+   <div id="portfolio">
+    <h1>My Portfolio</h1>
+    <div class="portfolio-list">
+        <div class="portfolio-item">
+            <img src="maze_photo.jpeg" alt="Project 1">
+            <h2>Micromouse</h2>
+            <p>The Micromouse or Maze Solver project is an interactive game where users solve a maze using Depth-First Search (DFS) visualization, showcasing pathfinding algorithms</p>
+        </div>
+        <div class="portfolio-item">
+            <img src="Weather_photo.jpeg" alt="Project 2">
+            <h2>Weather App</h2>
+            <p>Developed a weather app with API integration to provide real-time weather and humidity details globally</p>
+        </div>
+        <div class="portfolio-item">
+            <img src="Clone_photo.jpeg" alt="Project 3">
+            <h2>Netflix Clone</h2>
+            <p>This Netflix clone allows users to sign up and log in using a username and password, with PHP and MySQL integrated via an XAMPP server. Future plans include adding movies and making the site live</p>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h1>My Skills</h1>
+        <div class="skill">
+            <div class="skill-name">Web Development</div>
+            <div class="skill-bar">
+                <div class="fill" style="--skill-width: 90%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">Problem-solving</div>
+            <div class="skill-bar">
+                <div class="fill" style="--skill-width: 80%;"></div>
+            </div>
+        </div>
+        <div class="skill">
+            <div class="skill-name">JavaScript</div>
+            <div class="skill-bar">
+                <div class="fill" style="--skill-width: 70%;"></div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+ <!-- --------about-- -->
+ <div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="fullphoto_akshay.jpeg">
+            </div>
+            <div class="about-col-2">
+                <h1 class="sub-title">About me</h1>
+                <p>Enthusiastic and dedicated student pursuing Computer Engineering at AISSMS, with a keen interest in coding and making new projects. As a highly motivated individual, I am eager to leverage my academic background, passion for my domain, and strong problem-solving skills to contribute effectively as an intern.
+I am a space geek fascinated by the wonders of the cosmos. Exploring the mysteries of the universe has fueled my curiosity and shaped my analytical thinking.
+In addition to my academic pursuits, I am an avid chess player, finding joy in the strategic game. The lessons learned on the chessboard—strategic planning, adaptability, and critical thinking—are skills I bring into every aspect of my life. </p>
+
+                     <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('skills1')">Skills</p>
+                        <p class="tab-links"  onclick="opentab('experience')">Experience</p>
+                        <p class="tab-links"  onclick="opentab('education')">Projects</p>
+                     </div>
+
+                     <div class="tab-contents active-tab" id="skills1">
+                        <ul>
+                            <li><span>Languages</span><br>
+                            <ul>
+                                <li>Python</li>
+                                <li>C++</li>
+                                <li>JavaScript</li>
+                                <li>PHP</li>
+                               <li>Java</li>                                           
+                            </ul>
+                            
+                            </li>
+    
+                        </ul>
+                     </div>
+                     <div class="tab-contents" id="experience">
+                        <ul>
+                            <li><span>Experience & Certificates</span><br>
+                            <li>OneStopAi</li>
+                            </li>
+                            <li>
+                            <span>Certificates</span><br>
+                                Cisco
+                            <li>Codecademy</li> 
+                            <li>Linkedin</li> 
+                            <li>Codechef</li> 
+                        </li>
+                           
+
+                        </ul>
+                     </div>
+                     <div class="tab-contents" id="education">
+                        <ul>
+                            <li><span>Mini Projects</span><br></li>
+                              <li>Calculator </li>
+                            <li>Publish Website on aws</li>
+                            <li>Feature extraction using OCR in ML</li>
+                            <li>Clone Websites</li>
+                            <li>To do list</li>
+                            <li>TicTacToe and other games</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- -------------------servies------ -->
+<div id="services">
+    <div class="container">
+        <h1 class="sub-title">TechStack</h1>
+        <div class="services-list">
+            <div>
+                <i class="fa-solid fa-code"></i>
+                <h2>Web Desing</h2>
+                <p><b>Frontend & Backend </b><br>ReactJs,NextJs, JavaScript, HTML, 
+                    PHP, MYSQL, Mongodb</p>
+                    <a href="#">learn more</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-crop"></i>
+                <h2>Technical</h2>
+                <p><b>Data sturcture and algorithm</b><br> Version Control :Git & GitHub <br> 
+                OS : Windows & Linux <br> Frameworks : Xampp, Tomcat, Apache Netbeans   </p>
+                    <a href="#">learn more</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-lock"></i>
+                <h2>Additional</h2>
+                <p>Proeffient in Blockchain technology, Machine Learning, <br>Cybersecurity(click learn more for Cisco batch), AWS <br> Spark AR studio 38k+ impressions on fliter made </p>
+                    <a href="https://www.credly.com/badges/2dedb6cc-dcfc-48df-af89-4e0f9316e1ee">learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ---------------------portfolio------------------- -->
+<div id="Contact">
+    <div class="container">
+        <div class="row"> 
+            <div class="contact-left">
+                <h1 class="sub-title">Contact Me</h1>
+                <p ><i class="fa-regular fa-envelope"></i>akshaygbedre@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i>7887420405</p>
+                <div class="social-icons">
+                    <a href="https://github.com/ForeverAkshay"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.instagram.com/be.akshay05/"> <i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/akshay-bedre-01954a25b/"> <i class="fa-brands fa-linkedin"></i></a>
+
+                </div>
+                <a href="Akshay Resume CV.pdf" download class="btn">Download CV</a>
+                
+            </div>
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                <input type="text"  name="Name" placeholder="Your Name" required>
+                <input type="email" name="Email" placeholder="abc123@gmail.com" required>
+                <input type="text" name="Message" placeholder="Your message">
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <span id="msg"></span>
+            </div>
+
+
+            <!-- <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <br>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <br>
+                <button type="submit">Send</button>
+              </form>
+              
+              <script>
+                document.getElementById("contactForm").addEventListener("submit", function (e) {
+                  e.preventDefault();
+              
+                  // Your Google Apps Script URL
+                  const scriptURL = "https://script.google.com/macros/s/AKfycbwpvmZqKN4NeG9o43ClRlCmVWUe0ivt4B6Sa9Pxiksqna-UaR47_VUda6Tj7tPVq0FJIA/exec";
+              
+                  // Form data
+                  const formData = {
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    message: document.getElementById("message").value,
+                  };
+              
+                  // Send data to Google Apps Script
+                  fetch(scriptURL, {
+                    method: "POST",
+                    body: JSON.stringify(formData),
+                  })
+                    .then((response) => {
+                      if (response.ok) {
+                        alert("Message sent successfully!");
+                      } else {
+                        alert("Failed to send message.");
+                      }
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error);
+                      alert("There was an error!");
+                    });
+                });
+              </script> -->
+              
+            
+        </div>
+        
+    </div>
+    <div class="copyright">
+    <p>Copyright © Akshay <i class="fa-solid fa-bolt"></i><span><i>Your response will be recored via google sheets</i></span> </p>
+
+
+
+
+
+
+
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+
+
+
+    <script> 
+
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+
+        function opentab(tabname){
+            for(tablink of tablinks){
+                tablink.classList.remove("active-link");
+            }
+            for(tabcontent of tabcontents){
+                tabcontent.classList.remove("active-tab");
+            }
+            event.currentTarget.classList.add("active-link");
+            document.getElementById(tabname).classList.add("active-tab")
+        }
+    </script>
+    <script>
+        const scriptURL ='https://script.google.com/macros/s/AKfycbwpvmZqKN4NeG9o43ClRlCmVWUe0ivt4B6Sa9Pxiksqna-UaR47_VUda6Tj7tPVq0FJIA/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg")  
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {msg.innerHTML= "Message sent successfully"
+                  setTimeout(function(){
+                    msg.innerHTML = ""
+                  },5000)  
+                  form.reset()  
+                   })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
+
+    <script>
+        // Preloader
+        window.addEventListener("load", () => {
+            document.getElementById("preloader").style.display = "none";
+        });
+
+        // Show Back to Top Button
+        window.addEventListener('scroll', () => {
+            const backToTop = document.getElementById('back-to-top');
+            if (window.scrollY > 200) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Scroll to Top
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
