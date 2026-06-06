@@ -656,7 +656,7 @@ nav.scrolled{background:rgba(245,240,230,0.82);backdrop-filter:blur(14px) satura
     <p class="sec-label reveal">Get in touch</p>
     <h2 class="contact-title reveal">Let's build<br/>something good.</h2>
     <p class="contact-sub reveal">Open to graduate roles, internships, research collaborations, and freelance. Based in Newcastle, UK — available globally.</p>
-    <a href="/cdn-cgi/l/email-protection#4e2f253d262f37292c2b2a3c2b0e29232f2722602d2123" class="contact-email reveal" data-magnetic><span class="__cf_email__" data-cfemail="cbaaa0b8a3aab2aca9aeafb9ae8baca6aaa2a7e5a8a4a6">[email&#160;protected]</span></a>
+    <a href="#" class="contact-email reveal" data-magnetic data-user="akshaygbedre" data-domain="gmail.com">loading…</a>
   </div>
 
   <div class="contact-foot">
@@ -670,7 +670,7 @@ nav.scrolled{background:rgba(245,240,230,0.82);backdrop-filter:blur(14px) satura
   </div>
 </section>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ============================================================
    Akshay Bedre — portfolio motion
    ============================================================ */
@@ -712,6 +712,13 @@ nav.scrolled{background:rgba(245,240,230,0.82);backdrop-filter:blur(14px) satura
       document.body.style.overflow = '';
     })
   );
+
+  /* ---------- EMAIL (assembled to dodge obfuscators) ---------- */
+  document.querySelectorAll('[data-user][data-domain]').forEach((el) => {
+    const addr = el.dataset.user + '@' + el.dataset.domain;
+    el.textContent = addr;
+    el.setAttribute('href', 'mailto:' + addr);
+  });
 
   /* ---------- HERO reveal is now pure CSS animation (see styles.css) ---------- */
 
